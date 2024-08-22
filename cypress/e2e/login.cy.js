@@ -90,6 +90,23 @@ describe("Login Tests", () => {
           "This field can't be empty"
         );
       });
+
+
+      it("try to login with wrong credentials", () => {
+        cy.get("#userLogin").click();
+
+        cy.get("#loginEmail").type("fake@email.com");
+        cy.get("#loginEmail").should("have.value", "fake@email.com");
+
+        cy.get("#loginPassword").type("fakepassword");
+        cy.get("#loginPassword").should("have.value", "fakepassword");
+
+        cy.get("form").submit();
+        cy.get("#loginEmail-helper-text").should(
+          "contain",
+          "Account does not exists"
+        );
+      });
     });
 
     context("trying to login with SSO", () => {
