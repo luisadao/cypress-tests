@@ -91,8 +91,23 @@ describe("Login Tests", () => {
         );
       });
 
+      it("try to login with wrong email", () => {
+        cy.get("#userLogin").click();
 
-      it("try to login with wrong credentials", () => {
+        cy.get("#loginEmail").type("fake@emailasdjnias.com");
+        cy.get("#loginEmail").should("have.value", "fake@emailasdjnias.com");
+
+        cy.get("#loginPassword").type("fakepassword");
+        cy.get("#loginPassword").should("have.value", "fakepassword");
+
+        cy.get("form").submit();
+        cy.get("#loginEmail-helper-text").should(
+          "contain",
+          "Account does not exists"
+        );
+      });
+
+      it("try to login with wrong password", () => {
         cy.get("#userLogin").click();
 
         cy.get("#loginEmail").type("fake@email.com");
@@ -102,9 +117,9 @@ describe("Login Tests", () => {
         cy.get("#loginPassword").should("have.value", "fakepassword");
 
         cy.get("form").submit();
-        cy.get("#loginEmail-helper-text").should(
+        cy.get("#loginPassword-helper-text").should(
           "contain",
-          "Account does not exists"
+          "Incorrect password"
         );
       });
     });
