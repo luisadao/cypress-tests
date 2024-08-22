@@ -1,2 +1,2 @@
 # cypress-tests
-A simple project to test a website
+First time using cypress to test a website.
